@@ -1,0 +1,194 @@
+# depslib dependency file v1.0
+1303067212 source:e:\przysz造programista\myhomebudget\markup.cpp
+	<stdio.h>
+	"Markup.h"
+	<errno.h>
+	<iconv.h>
+	<windows.h>
+	<mbstring.h>
+
+1303067212 e:\przysz造programista\myhomebudget\markup.h
+	<stdlib.h>
+	<string.h>
+	<string>
+	<afx.h>
+
+1553010639 source:e:\przysz造programista\myhomebudget\main.cpp
+	<ctime>
+	<string>
+	<iostream>
+	"Markup.h"
+	<cstdlib>
+	<vector>
+	<algorithm>
+	"UserManager.h"
+	"FileWithUsers.h"
+
+1553010115 source:e:\przysz造programista\myhomebudget\filewithusers.cpp
+	"FileWithUsers.h"
+
+1553010579 e:\przysz造programista\myhomebudget\filewithusers.h
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"User.h"
+	"Markup.h"
+
+1552485745 e:\przysz造programista\myhomebudget\user.h
+	<iostream>
+
+1552476021 source:e:\przysz造programista\myhomebudget\user.cpp
+	"User.h"
+
+1552756088 source:e:\przysz造programista\myhomebudget\personalbudget.cpp
+
+1552757694 source:e:\przysz造programista\myhomebudget\usermanager.cpp
+	"UserManager.h"
+
+1552763262 e:\przysz造programista\myhomebudget\usermanager.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<sstream>
+	<fstream>
+	"User.h"
+	"FileWithUsers.h"
+
+1303070812 source:e:\przyszlyprogramista\myhomebudget\markup.cpp
+	<stdio.h>
+	"Markup.h"
+	<errno.h>
+	<iconv.h>
+	<windows.h>
+	<mbstring.h>
+
+1303070812 e:\przyszlyprogramista\myhomebudget\markup.h
+	<stdlib.h>
+	<string.h>
+	<string>
+	<afx.h>
+
+1556543390 source:e:\przyszlyprogramista\myhomebudget\personalbudget.cpp
+	"PersonalBudget.h"
+
+1552479621 source:e:\przyszlyprogramista\myhomebudget\user.cpp
+	"User.h"
+
+1552489345 e:\przyszlyprogramista\myhomebudget\user.h
+	<iostream>
+
+1556630932 source:e:\przyszlyprogramista\myhomebudget\usermanager.cpp
+	"UserManager.h"
+
+1556631089 e:\przyszlyprogramista\myhomebudget\usermanager.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<sstream>
+	<fstream>
+	"User.h"
+	"FileWithUsers.h"
+
+1556236765 e:\przyszlyprogramista\myhomebudget\filewithusers.h
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"User.h"
+	"Markup.h"
+
+1556236765 source:e:\przyszlyprogramista\myhomebudget\filewithusers.cpp
+	"FileWithUsers.h"
+
+1556206217 source:e:\przyszlyprogramista\myhomebudget\main.cpp
+	<ctime>
+	<string>
+	<iostream>
+	"Markup.h"
+	<cstdlib>
+	<vector>
+	<algorithm>
+	"PersonalBudget.h"
+
+1557450614 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
+	"AccountManager.h"
+
+1557450368 e:\przyszlyprogramista\myhomebudget\accountmanager.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	"User.h"
+	"Date.h"
+	"Transaction.h"
+	"AdditionalMethods.h"
+	"FileWithIncomes.h"
+	"FileWithExpanses.h"
+
+1555027449 source:e:\przyszlyprogramista\myhomebudget\additionalmethods.cpp
+	"AdditionalMethods.h"
+
+1554304373 e:\przyszlyprogramista\myhomebudget\additionalmethods.h
+	<iostream>
+	<sstream>
+
+1553739658 source:e:\przyszlyprogramista\myhomebudget\transaction.cpp
+	"Transaction.h"
+
+1553739658 e:\przyszlyprogramista\myhomebudget\transaction.h
+	<iostream>
+
+1553889003 source:e:\przyszlyprogramista\myhomebudget\expanse.cpp
+	"Expanse.h"
+
+1553888296 source:e:\przyszlyprogramista\myhomebudget\income.cpp
+	"Income.h"
+
+1554306085 e:\przyszlyprogramista\myhomebudget\income.h
+	<iostream>
+	"Transaction.h"
+
+1556716447 source:e:\przyszlyprogramista\myhomebudget\filewithincomes.cpp
+	"FileWithIncomes.h"
+
+1556716062 e:\przyszlyprogramista\myhomebudget\filewithincomes.h
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Markup.h"
+	"AdditionalMethods.h"
+	"Transaction.h"
+
+1554306085 e:\przyszlyprogramista\myhomebudget\expanse.h
+	<iostream>
+	"Transaction.h"
+
+1556717122 source:e:\przyszlyprogramista\myhomebudget\filewithexpanses.cpp
+	"FileWithExpanses.h"
+
+1556717092 e:\przyszlyprogramista\myhomebudget\filewithexpanses.h
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Transaction.h"
+	"AdditionalMethods.h"
+	"Markup.h"
+
+1556543420 e:\przyszlyprogramista\myhomebudget\personalbudget.h
+	<iostream>
+	"UserManager.h"
+	"AccountManager.h"
+
+1557165763 source:e:\przyszlyprogramista\myhomebudget\date.cpp
+	"Date.h"
+
+1557165763 e:\przyszlyprogramista\myhomebudget\date.h
+	<iostream>
+
