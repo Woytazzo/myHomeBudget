@@ -12,11 +12,11 @@ class PersonalBudget
     UserManager userManager;
     AccountManager *accountManager;
     const string NAME_OF_FILE_WITH_INCOMES;
-    const string NAME_OF_FILE_WITH_EXPANSES;
+    const string NAME_OF_FILE_WITH_ExpenseS;
 
     public:
-PersonalBudget(string nameOfFileWithIncomes, string nameOfFileWithExpanses, string nameOfFileWithUsers)
-: userManager(nameOfFileWithUsers) , NAME_OF_FILE_WITH_EXPANSES(nameOfFileWithExpanses), NAME_OF_FILE_WITH_INCOMES(nameOfFileWithIncomes)
+PersonalBudget(string nameOfFileWithIncomes, string nameOfFileWithExpenses, string nameOfFileWithUsers)
+: userManager(nameOfFileWithUsers) , NAME_OF_FILE_WITH_ExpenseS(nameOfFileWithExpenses), NAME_OF_FILE_WITH_INCOMES(nameOfFileWithIncomes)
 {
 
 };
@@ -30,7 +30,7 @@ PersonalBudget(string nameOfFileWithIncomes, string nameOfFileWithExpanses, stri
 void registration();
 void logIn();
 void addIncome();
-void addExpanse();
+void addExpense();
 void showBalanceOfThisMonth();
 void showBalanceOfPrevMonth();
 void showBalanceOfChosenPeriod();

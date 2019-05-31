@@ -8,7 +8,7 @@ void PersonalBudget::logIn()
     userManager.logIn();
     if(userManager.ifUserIsLoggedIn())
     {
-       accountManager = new AccountManager(NAME_OF_FILE_WITH_EXPANSES, NAME_OF_FILE_WITH_INCOMES, userManager.getIdOfLoggedUser());
+       accountManager = new AccountManager(NAME_OF_FILE_WITH_ExpenseS, NAME_OF_FILE_WITH_INCOMES, userManager.getIdOfLoggedUser());
     }
 }
 void PersonalBudget::addIncome()
@@ -20,10 +20,10 @@ if(userManager.ifUserIsLoggedIn())
         system("pause");
     }
 }
-void PersonalBudget::addExpanse()
+void PersonalBudget::addExpense()
 {
     if(userManager.ifUserIsLoggedIn())
-        accountManager->addExpanse();
+        accountManager->addExpense();
     else{
         cout<<"Zaloguj sie na swoje konto"<<endl;
         system("pause");
@@ -101,7 +101,7 @@ cout<<"Wybierz i zatwierdz (ENTER) jedna z opcji:"<<endl<<endl;
             addIncome();
             break;
         case '2':
-            addExpanse();
+            addExpense();
             break;
         case '3':
             balance();

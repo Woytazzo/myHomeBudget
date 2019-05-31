@@ -70,7 +70,7 @@
 	<string>
 	<afx.h>
 
-1556543390 source:e:\przyszlyprogramista\myhomebudget\personalbudget.cpp
+1559177846 source:e:\przyszlyprogramista\myhomebudget\personalbudget.cpp
 	"PersonalBudget.h"
 
 1552479621 source:e:\przyszlyprogramista\myhomebudget\user.cpp
@@ -100,10 +100,10 @@
 	"User.h"
 	"Markup.h"
 
-1556236765 source:e:\przyszlyprogramista\myhomebudget\filewithusers.cpp
+1559219543 source:e:\przyszlyprogramista\myhomebudget\filewithusers.cpp
 	"FileWithUsers.h"
 
-1556206217 source:e:\przyszlyprogramista\myhomebudget\main.cpp
+1559219541 source:e:\przyszlyprogramista\myhomebudget\main.cpp
 	<ctime>
 	<string>
 	<iostream>
@@ -113,10 +113,10 @@
 	<algorithm>
 	"PersonalBudget.h"
 
-1557450614 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
+1559229882 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
 	"AccountManager.h"
 
-1557450368 e:\przyszlyprogramista\myhomebudget\accountmanager.h
+1559229856 e:\przyszlyprogramista\myhomebudget\accountmanager.h
 	<iostream>
 	<cstdlib>
 	<ctime>
@@ -126,7 +126,7 @@
 	"Transaction.h"
 	"AdditionalMethods.h"
 	"FileWithIncomes.h"
-	"FileWithExpanses.h"
+	"FileWithExpenses.h"
 
 1555027449 source:e:\przyszlyprogramista\myhomebudget\additionalmethods.cpp
 	"AdditionalMethods.h"
@@ -151,10 +151,10 @@
 	<iostream>
 	"Transaction.h"
 
-1556716447 source:e:\przyszlyprogramista\myhomebudget\filewithincomes.cpp
+1559226412 source:e:\przyszlyprogramista\myhomebudget\filewithincomes.cpp
 	"FileWithIncomes.h"
 
-1556716062 e:\przyszlyprogramista\myhomebudget\filewithincomes.h
+1559229785 e:\przyszlyprogramista\myhomebudget\filewithincomes.h
 	<iostream>
 	<fstream>
 	<vector>
@@ -163,6 +163,7 @@
 	"Markup.h"
 	"AdditionalMethods.h"
 	"Transaction.h"
+	"File.h"
 
 1554306085 e:\przyszlyprogramista\myhomebudget\expanse.h
 	<iostream>
@@ -181,7 +182,7 @@
 	"AdditionalMethods.h"
 	"Markup.h"
 
-1556543420 e:\przyszlyprogramista\myhomebudget\personalbudget.h
+1559177847 e:\przyszlyprogramista\myhomebudget\personalbudget.h
 	<iostream>
 	"UserManager.h"
 	"AccountManager.h"
@@ -191,4 +192,31 @@
 
 1557165763 e:\przyszlyprogramista\myhomebudget\date.h
 	<iostream>
+
+1559229749 e:\przyszlyprogramista\myhomebudget\filewithexpenses.h
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Transaction.h"
+	"AdditionalMethods.h"
+	"Markup.h"
+	"File.h"
+
+1559228176 e:\przyszlyprogramista\myhomebudget\file.h
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Markup.h"
+	"AdditionalMethods.h"
+	"Transaction.h"
+
+1559226412 source:e:\przyszlyprogramista\myhomebudget\filewithexpenses.cpp
+	"FileWithExpenses.h"
+
+1559226777 source:e:\przyszlyprogramista\myhomebudget\file.cpp
+	"FileWithIncomes.h"
 

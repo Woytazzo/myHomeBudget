@@ -29,14 +29,14 @@ xml.AddElem( "SURNAME", users[i].getSurname() );
 xml.OutOfElem();
 i++;
    }
-xml.Save( "E:\\PrzyszlyProgramista\\myHomeBudget\\Users.xml");
+xml.Save( "Users.xml");
 }
 
 void FileWithUsers::addUserToFile(User user)
 {
     CMarkup xmlTemp;
 
-if(!xml.Load("E:\\PrzyszlyProgramista\\myHomeBudget\\Users.xml"))
+if(!xml.Load("Users.xml"))
 {
     xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
     xml.AddElem("USERS");
@@ -58,7 +58,7 @@ xml.AddElem( "NAME", user.getName() );
 xml.AddElem( "SURNAME", user.getSurname() );
 xml.OutOfElem();
 
-xml.Save( "E:\\PrzyszlyProgramista\\myHomeBudget\\Users.xml");
+xml.Save( "Users.xml");
 }
 
 vector <User> FileWithUsers::loadUsersFromFile()
@@ -71,7 +71,7 @@ vector <User> FileWithUsers::loadUsersFromFile()
 
 CMarkup FileWithUsers::loadDataToXmlFromFile()
 {
-    xml.Load( "E:\\PrzyszlyProgramista\\myHomeBudget\\Users.xml" );
+    xml.Load( "Users.xml" );
     return xml;
 }
 

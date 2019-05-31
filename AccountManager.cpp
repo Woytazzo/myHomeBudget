@@ -140,7 +140,7 @@ bool AccountManager::ifDateIsCorrect(string dateByUser)
     }
     else
     {
-        cout<<"nieodpowiednia ilosc znakow"<<endl;
+        //cout<<"nieodpowiednia ilosc znakow"<<endl;
         return false;
     }
 
@@ -218,16 +218,16 @@ void AccountManager::addIncome()
     cout<<"DODAJ PRZYCHOD"<<endl;
     addTransaction();
     incomes.push_back(transaction);
-    fileWithIncomes.saveLastIncomeToFile(transaction, idOfLoggedUser);
+    fileWithIncomes.saveLastTransactionToFile(transaction, idOfLoggedUser, "Incomes.xml");
 }
 
-void AccountManager::addExpanse()
+void AccountManager::addExpense()
 {
     system("cls");
     cout<<"DODAJ WYDATEK"<<endl;
     addTransaction();
-    expanses.push_back(transaction);
-    fileWithExpanses.saveLastExpanseToFile(transaction, idOfLoggedUser);
+    expenses.push_back(transaction);
+    fileWithExpenses.saveLastTransactionToFile(transaction, idOfLoggedUser, "Expenses.xml");
 }
 
 int AccountManager::getIdOfLoggedUser()
@@ -263,23 +263,23 @@ void AccountManager::getIncomesFromSpecificPeriod(Date beginningDateToSum, Date 
             incomesInBalance.push_back(incomes[i]);
     }
 }
-void AccountManager::getExpansesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum)
+void AccountManager::getExpensesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum)
 {
-    Date dateFromExpanse;
+    Date dateFromExpense;
 
-    expansesInBalance.clear();
+    expensesInBalance.clear();
 
-    for (int i=0; i<expanses.size(); i++)
+    for (int i=0; i<expenses.size(); i++)
     {
-        dateFromExpanse=divideDateToDayMonthYear(expanses[i].getDateOfTransaction());
+        dateFromExpense=divideDateToDayMonthYear(expenses[i].getDateOfTransaction());
 
-        if(dateFromExpanse.getYear()>=beginningDateToSum.getYear() &&
-            dateFromExpanse.getMonth()>=beginningDateToSum.getMonth() &&
-            dateFromExpanse.getDay()>=beginningDateToSum.getDay() &&
-            dateFromExpanse.getYear()<=endingDateToSum.getYear() &&
-            dateFromExpanse.getMonth()<=endingDateToSum.getMonth() &&
-            dateFromExpanse.getDay()<=endingDateToSum.getDay() )
-            expansesInBalance.push_back(expanses[i]);
+        if(dateFromExpense.getYear()>=beginningDateToSum.getYear() &&
+            dateFromExpense.getMonth()>=beginningDateToSum.getMonth() &&
+            dateFromExpense.getDay()>=beginningDateToSum.getDay() &&
+            dateFromExpense.getYear()<=endingDateToSum.getYear() &&
+            dateFromExpense.getMonth()<=endingDateToSum.getMonth() &&
+            dateFromExpense.getDay()<=endingDateToSum.getDay() )
+            expensesInBalance.push_back(expenses[i]);
     }
 }
 
@@ -297,26 +297,26 @@ void AccountManager::printAllIncomesToBalance()
 }
 
 
-void AccountManager::printAllExpansesToBalance()
+void AccountManager::printAllExpensesToBalance()
 {
     cout<<"WYDATKI:"<<endl;
     cout<<"DATA / OPIS / KWOTA"<<endl;
-    for(int i=0; i<expansesInBalance.size(); i++)
+    for(int i=0; i<expensesInBalance.size(); i++)
     {
-          cout<<expansesInBalance[i].getDateOfTransaction()<<" / "
-          <<expansesInBalance[i].getTransactionDescription()<<" / "
-          <<expansesInBalance[i].getAmountOfMoneyInTransaction()<<endl;
+          cout<<expensesInBalance[i].getDateOfTransaction()<<" / "
+          <<expensesInBalance[i].getTransactionDescription()<<" / "
+          <<expensesInBalance[i].getAmountOfMoneyInTransaction()<<endl;
     }
     system("pause");
 }
 
-float AccountManager::sumUpIncomesAndExpansesToBalance()
+float AccountManager::sumUpIncomesAndExpensesToBalance()
 {
     float balance=0;
     for(int i=0; i<incomesInBalance.size(); i++)
         balance=balance+incomesInBalance[i].getAmountOfMoneyInTransaction();
-    for(int i=0; i<expansesInBalance.size(); i++)
-        balance=balance-expansesInBalance[i].getAmountOfMoneyInTransaction();
+    for(int i=0; i<expensesInBalance.size(); i++)
+        balance=balance-expensesInBalance[i].getAmountOfMoneyInTransaction();
         return balance;
 }
 
@@ -338,21 +338,21 @@ void AccountManager::getIncomesOfThisMonth()
     }
 }
 
-void AccountManager::getExpansesOfThisMonth()
+void AccountManager::getExpensesOfThisMonth()
 {
     string date;
     int month;
-    expansesInBalance.clear();
+    expensesInBalance.clear();
 
-    for(int i=0; i<expanses.size(); i++)
+    for(int i=0; i<expenses.size(); i++)
     {
-        date=expanses[i].getDateOfTransaction();
+        date=expenses[i].getDateOfTransaction();
         date = date.erase(0,5);
         date = date.erase(2,3);
         month = atoi(date.c_str());
 
         if (month==getAcctualMonthFromSystem())
-        expansesInBalance.push_back(expanses[i]);
+        expensesInBalance.push_back(expenses[i]);
     }
 }
 
@@ -362,10 +362,10 @@ void AccountManager::balanceOfSpecificPeriod(Date date1, Date date2)
     getIncomesFromSpecificPeriod(date1, date2);
     printAllIncomesToBalance();
     cout<<endl;
-    getExpansesFromSpecificPeriod(date1, date2);
-    printAllExpansesToBalance();
+    getExpensesFromSpecificPeriod(date1, date2);
+    printAllExpensesToBalance();
     cout<<endl;
-    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpansesToBalance()<<endl;
+    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpensesToBalance()<<endl;
     system ("pause");
 }
 
@@ -373,17 +373,18 @@ void AccountManager::balanceOfThisMonth()
 {
     system("cls");
     getIncomesOfThisMonth();
-    getExpansesOfThisMonth();
+    getExpensesOfThisMonth();
     printAllIncomesToBalance();
     cout<<endl;
-    printAllExpansesToBalance();
+    printAllExpensesToBalance();
     cout<<endl;
-    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpansesToBalance()<<endl;
+    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpensesToBalance()<<endl;
     system ("pause");
 }
 
 Date AccountManager::chooseOpeningDate()
 {
+    system("cls");
     string date;
  cout<<"podaj date (w formacie rrrr-mm-dd), od ktorej zaczniemy liczyc bilans"<<endl;
  cin>>date;
@@ -393,6 +394,7 @@ Date AccountManager::chooseOpeningDate()
 
 Date AccountManager::chooseClosingDate()
 {
+    system("cls");
     string date;
     cout<<"podaj date (w formacie rrrr-mm-dd), na ktorej skonczymy liczyc bilans"<<endl;
     cin>>date;
@@ -438,40 +440,40 @@ int AccountManager::getLastTransactionId()
             lastTransactionId=incomes[i].getTransactionId();
     }
 
-    for(int j=0; j<expanses.size(); j++)
+    for(int j=0; j<expenses.size(); j++)
     {
-        if(expanses[j].getTransactionId()>lastTransactionId)
-            lastTransactionId=expanses[j].getTransactionId();
+        if(expenses[j].getTransactionId()>lastTransactionId)
+            lastTransactionId=expenses[j].getTransactionId();
     }
     return lastTransactionId;
 }
 
-void AccountManager::getExpansesOfPrevMonth()
+void AccountManager::getExpensesOfPrevMonth()
 {
     string date;
     int month, year;
-    expansesInBalance.clear();
+    expensesInBalance.clear();
 
-    for(int i=0; i<expanses.size(); i++)
+    for(int i=0; i<expenses.size(); i++)
     {
-        date=expanses[i].getDateOfTransaction();
+        date=expenses[i].getDateOfTransaction();
         date = date.erase(0,5);
         date = date.erase(2,3);
         month = atoi(date.c_str());
 
-        date=expanses[i].getDateOfTransaction();
+        date=expenses[i].getDateOfTransaction();
         date = date.erase(4,6);
         year = atoi(date.c_str());
         if((getAcctualMonthFromSystem()!=1) && getAcctualYearFromSystem()==year)
         {
             if
             (month==(getAcctualMonthFromSystem()-1))
-            expansesInBalance.push_back(expanses[i]);
+            expensesInBalance.push_back(expenses[i]);
         }
         else
         {
             if((month==12) && (getAcctualYearFromSystem()-1==year))
-            expansesInBalance.push_back(expanses[i]);
+            expensesInBalance.push_back(expenses[i]);
         }
     }
 }
@@ -507,14 +509,15 @@ void AccountManager::getIncomesOfPrevMonth()
 
 void AccountManager::balanceOfPreviousMonth()
 {
+    system("cls");
     getIncomesOfPrevMonth();
-    getExpansesOfPrevMonth();
-    //sortingIncomesByDate();
+    getExpensesOfPrevMonth();
+    sortingIncomesByDate();
     printAllIncomesToBalance();
     cout<<endl;
-    printAllExpansesToBalance();
+    printAllExpensesToBalance();
     cout<<endl;
-    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpansesToBalance()<<endl;
+    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpensesToBalance()<<endl;
     system ("pause");
 }
 
