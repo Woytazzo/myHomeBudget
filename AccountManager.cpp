@@ -512,7 +512,7 @@ void AccountManager::balanceOfPreviousMonth()
     system("cls");
     getIncomesOfPrevMonth();
     getExpensesOfPrevMonth();
-    sortingIncomesByDate();
+    //sortingIncomesByDate(); TUTAJ PO SORTOWANIU NIE DZIALA
     printAllIncomesToBalance();
     cout<<endl;
     printAllExpensesToBalance();
