@@ -10,7 +10,7 @@
 #include "Transaction.h"
 #include "AdditionalMethods.h"
 #include "FileWithIncomes.h"
-#include "FileWithExpanses.h"
+#include "FileWithExpenses.h"
 
 using namespace std;
 
@@ -21,13 +21,13 @@ class AccountManager
     User user;
     Transaction transaction;
 
-    vector <Transaction> expanses;
+    vector <Transaction> expenses;
     vector <Transaction> incomes;
-    vector <Transaction> expansesInBalance;
+    vector <Transaction> expensesInBalance;
     vector <Transaction> incomesInBalance;
 
     Date dateWithSeparationForYearMonthDay;
-    FileWithExpanses fileWithExpanses;
+    FileWithExpenses fileWithExpenses;
     FileWithIncomes fileWithIncomes;
     AdditionalMethods additionalMethods;
     string dateByUser;
@@ -52,35 +52,35 @@ class AccountManager
 
 
 public:
-    AccountManager(string NAMEOFFILEWITHEXPANSES, string NAMEOFFILEWITHINCOMES, int IDOFLOGGEDUSER): fileWithExpanses(NAMEOFFILEWITHEXPANSES), fileWithIncomes(NAMEOFFILEWITHINCOMES)
+    AccountManager(string NAMEOFFILEWITHEXPENSES, string NAMEOFFILEWITHINCOMES, int IDOFLOGGEDUSER): fileWithExpenses(NAMEOFFILEWITHEXPENSES), fileWithIncomes(NAMEOFFILEWITHINCOMES)
     {
     idOfLoggedUser = IDOFLOGGEDUSER;
-    incomes = fileWithIncomes.loadIncomesFromFile(idOfLoggedUser);
-    expanses = fileWithExpanses.loadExpansesFromFile(idOfLoggedUser);
+    incomes = fileWithIncomes.loadTransactionsFromFile(idOfLoggedUser, "Incomes.xml");
+    expenses = fileWithExpenses.loadTransactionsFromFile(idOfLoggedUser, "Expenses.xml");
     lastTransactionId = getLastTransactionId();
     };
     void showMenu();
     void showBalanceInnerMenu();
     void addTransaction();
     void addIncome();
-    void addExpanse();
+    void addExpense();
     void balanceOfSpecificPeriod(Date date1, Date date2);
     int getLastTransactionId();
     void getIncomesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum);
     struct Date divideDateToDayMonthYear(string date);
     void printAllIncomesToBalance();
-    void getExpansesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum);
-    void printAllExpansesToBalance();
-    float sumUpIncomesAndExpansesToBalance();
+    void getExpensesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum);
+    void printAllExpensesToBalance();
+    float sumUpIncomesAndExpensesToBalance();
     void getIncomesOfThisMonth();
-    void getExpansesOfThisMonth();
+    void getExpensesOfThisMonth();
     void balanceOfThisMonth();
     Date chooseOpeningDate();
     Date chooseClosingDate();
     void balance();
     void balanceMenu();
     void balanceOfPreviousMonth();
-    void getExpansesOfPrevMonth();
+    void getExpensesOfPrevMonth();
     void getIncomesOfPrevMonth();
     int makePartitionOfIncomes(int p, int r);
     void quicksort(int p, int r);
