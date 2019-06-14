@@ -2,25 +2,29 @@
 #define TRANSACTION_H
 
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 class Transaction
 {
     int transactionId;
-    string dateOfTransaction;
+    int dateOfTransaction;
     string transactionDescription;
     float amountOfMoneyInTransaction;
 
 
 public:
+    bool operator <(Transaction obj) const{
+        return (dateOfTransaction < obj.dateOfTransaction);
+}
     void setTransactionId(int transactionId);
-    void setDateOfTransaction(string dateOfTransaction);
+    void setDateOfTransaction(int dateOfTransaction);
     void setTransactionDescription(string transactionDescription);
     void setAmountOfMoneyInTransaction(float amountOfMoneyInTransaction);
 
     int getTransactionId();
-    string getDateOfTransaction();
+    int getDateOfTransaction();
     string getTransactionDescription();
     float getAmountOfMoneyInTransaction();
 

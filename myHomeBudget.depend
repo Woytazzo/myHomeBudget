@@ -70,7 +70,7 @@
 	<string>
 	<afx.h>
 
-1559177846 source:e:\przyszlyprogramista\myhomebudget\personalbudget.cpp
+1559777765 source:e:\przyszlyprogramista\myhomebudget\personalbudget.cpp
 	"PersonalBudget.h"
 
 1552479621 source:e:\przyszlyprogramista\myhomebudget\user.cpp
@@ -103,7 +103,7 @@
 1559219543 source:e:\przyszlyprogramista\myhomebudget\filewithusers.cpp
 	"FileWithUsers.h"
 
-1559219541 source:e:\przyszlyprogramista\myhomebudget\main.cpp
+1559777765 source:e:\przyszlyprogramista\myhomebudget\main.cpp
 	<ctime>
 	<string>
 	<iostream>
@@ -113,11 +113,12 @@
 	<algorithm>
 	"PersonalBudget.h"
 
-1559229882 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
+1560385406 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
 	"AccountManager.h"
 
-1559229856 e:\przyszlyprogramista\myhomebudget\accountmanager.h
+1560388011 e:\przyszlyprogramista\myhomebudget\accountmanager.h
 	<iostream>
+	<algorithm>
 	<cstdlib>
 	<ctime>
 	<vector>
@@ -128,18 +129,20 @@
 	"FileWithIncomes.h"
 	"FileWithExpenses.h"
 
-1555027449 source:e:\przyszlyprogramista\myhomebudget\additionalmethods.cpp
+1560387089 source:e:\przyszlyprogramista\myhomebudget\additionalmethods.cpp
 	"AdditionalMethods.h"
 
-1554304373 e:\przyszlyprogramista\myhomebudget\additionalmethods.h
+1560387089 e:\przyszlyprogramista\myhomebudget\additionalmethods.h
 	<iostream>
 	<sstream>
+	<cstdlib>
 
-1553739658 source:e:\przyszlyprogramista\myhomebudget\transaction.cpp
+1560475647 source:e:\przyszlyprogramista\myhomebudget\transaction.cpp
 	"Transaction.h"
 
-1553739658 e:\przyszlyprogramista\myhomebudget\transaction.h
+1560475649 e:\przyszlyprogramista\myhomebudget\transaction.h
 	<iostream>
+	<algorithm>
 
 1553889003 source:e:\przyszlyprogramista\myhomebudget\expanse.cpp
 	"Expanse.h"
@@ -182,7 +185,7 @@
 	"AdditionalMethods.h"
 	"Markup.h"
 
-1559177847 e:\przyszlyprogramista\myhomebudget\personalbudget.h
+1559777765 e:\przyszlyprogramista\myhomebudget\personalbudget.h
 	<iostream>
 	"UserManager.h"
 	"AccountManager.h"
@@ -204,7 +207,7 @@
 	"Markup.h"
 	"File.h"
 
-1559228176 e:\przyszlyprogramista\myhomebudget\file.h
+1559779179 e:\przyszlyprogramista\myhomebudget\file.h
 	<iostream>
 	<fstream>
 	<vector>
@@ -217,6 +220,6 @@
 1559226412 source:e:\przyszlyprogramista\myhomebudget\filewithexpenses.cpp
 	"FileWithExpenses.h"
 
-1559226777 source:e:\przyszlyprogramista\myhomebudget\file.cpp
+1559779353 source:e:\przyszlyprogramista\myhomebudget\file.cpp
 	"FileWithIncomes.h"
 

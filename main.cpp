@@ -14,6 +14,7 @@ int main() {
     PersonalBudget personalBudget("Incomes.xml", "Expenses.xml", "Users.xml");
 
     personalBudget.mainMenus();
+
     return 0;
 }
 

@@ -5,8 +5,9 @@ void Transaction::setTransactionId(int transactionId)
     if(transactionId>=0)
     this->transactionId=transactionId;
 }
-void Transaction::setDateOfTransaction(string dateOfTransaction)
+void Transaction::setDateOfTransaction(int dateOfTransaction)
 {
+
     this->dateOfTransaction=dateOfTransaction;
 }
 void Transaction::setTransactionDescription(string transactionDescription)
@@ -23,7 +24,7 @@ void Transaction::setAmountOfMoneyInTransaction(float amountOfMoneyInTransaction
     {
         return transactionId;
     }
-    string Transaction::getDateOfTransaction()
+    int Transaction::getDateOfTransaction()
     {
         return dateOfTransaction;
     }

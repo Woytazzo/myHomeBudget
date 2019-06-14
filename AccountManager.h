@@ -2,6 +2,7 @@
 #define ACCOUNTMANAGER_H
 
 #include <iostream>
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -25,6 +26,7 @@ class AccountManager
     vector <Transaction> incomes;
     vector <Transaction> expensesInBalance;
     vector <Transaction> incomesInBalance;
+    vector <Transaction> transactionsInBalance;
 
     Date dateWithSeparationForYearMonthDay;
     FileWithExpenses fileWithExpenses;
@@ -39,8 +41,8 @@ class AccountManager
     int getAcctualYearFromSystem();
     int getAcctualMonthFromSystem();
     int getAcctualDayFromSystem();
-    string getTodaysDateFromSystem();
-    string setDateManuallyByUser();
+    int getTodaysDateFromSystem();
+    int setDateManuallyByUser();
     bool ifDateIsCorrect(string date);
     void getYearMonthDayFromWholeDate(string dateByUser);
     int giveAmountOfDaysInMonth(Date date);
@@ -48,8 +50,6 @@ class AccountManager
     string getInfoAboutTransaction();
     float getAmountOfMoney();
     int getIdOfLoggedUser();
-
-
 
 public:
     AccountManager(string NAMEOFFILEWITHEXPENSES, string NAMEOFFILEWITHINCOMES, int IDOFLOGGEDUSER): fileWithExpenses(NAMEOFFILEWITHEXPENSES), fileWithIncomes(NAMEOFFILEWITHINCOMES)
@@ -64,28 +64,22 @@ public:
     void addTransaction();
     void addIncome();
     void addExpense();
-    void balanceOfSpecificPeriod(Date date1, Date date2);
+    void balanceOfSpecificPeriod(string date1, string date2);
     int getLastTransactionId();
-    void getIncomesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum);
-    struct Date divideDateToDayMonthYear(string date);
-    void printAllIncomesToBalance();
-    void getExpensesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum);
-    void printAllExpensesToBalance();
+
+    Date divideDateToDayMonthYear(int dateToConvert);
+    void printAllTransactionsToBalance(string typeOfTransactions, vector <Transaction> transactions);
+    vector <Transaction> getTransactionsFromSpecificPeriod(string beginningDateToSum, string endingDateToSum, vector <Transaction> transactions);
     float sumUpIncomesAndExpensesToBalance();
-    void getIncomesOfThisMonth();
-    void getExpensesOfThisMonth();
+    vector <Transaction> getTransactionsOfThisMonth(vector <Transaction> transactions);
     void balanceOfThisMonth();
-    Date chooseOpeningDate();
-    Date chooseClosingDate();
+    string chooseDate( string textToView);
     void balance();
     void balanceMenu();
     void balanceOfPreviousMonth();
-    void getExpensesOfPrevMonth();
-    void getIncomesOfPrevMonth();
-    int makePartitionOfIncomes(int p, int r);
-    void quicksort(int p, int r);
-    void sortingIncomesByDate();
-
+    vector <Transaction> getTransactionsOfPrevMonth(vector <Transaction> transactions);
+    void balanceOfSpecificMonth2ndPart();
+    bool sortByDate(Transaction &A, Transaction &B);
 };
 
 #endif // ACCOUNTMANAGER_H

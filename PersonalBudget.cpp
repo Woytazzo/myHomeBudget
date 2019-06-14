@@ -38,22 +38,7 @@ void PersonalBudget::balance()
         system("pause");
     }
 }
-void PersonalBudget::BalanceMenu()
-{
-    ;
-}
-void PersonalBudget::showBalanceOfThisMonth()
-{
-;
-}
-void PersonalBudget::showBalanceOfPrevMonth()
-{
-;
-}
-void PersonalBudget::showBalanceOfChosenPeriod()
-{
-;
-}
+
 void PersonalBudget::changePassword()
 {
     userManager.changePassword();

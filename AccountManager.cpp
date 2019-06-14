@@ -37,7 +37,7 @@ int AccountManager::getAcctualDayFromSystem()
          return (now->tm_mday);
 }
 
-string AccountManager::getTodaysDateFromSystem()
+int AccountManager::getTodaysDateFromSystem()
 {
     int day, month, year;
 
@@ -45,17 +45,11 @@ string AccountManager::getTodaysDateFromSystem()
     month=getAcctualMonthFromSystem();
     year=getAcctualYearFromSystem();
 
-    string dayConverted, monthConverted, yearConverted, dateFromSystem;
+    int dateFromSystem;
 
-    dayConverted=additionalMethods.convertIntToString(day);
-    dayConverted=addZeroIfTheresOnlyOneNumber(dayConverted);
 
-    monthConverted=additionalMethods.convertIntToString(month);
-    monthConverted=addZeroIfTheresOnlyOneNumber(monthConverted);
+    dateFromSystem=year*10000+month*100+day;
 
-    yearConverted=additionalMethods.convertIntToString(year);
-
-    dateFromSystem=yearConverted+"-"+monthConverted+"-"+dayConverted;
     return dateFromSystem;
 }
 
@@ -153,7 +147,7 @@ bool AccountManager::ifDateIsCorrect(string dateByUser)
     return true;
 }
 
-string AccountManager::setDateManuallyByUser()
+int AccountManager::setDateManuallyByUser()
 {
     dateByUser="0000-00-00";
     while(ifDateIsCorrect(dateByUser)!=true)
@@ -164,8 +158,8 @@ string AccountManager::setDateManuallyByUser()
         cout<<"blednie wprowadzona data"<<endl;
     }
 
-
-    return dateByUser;
+    int dateByUserToInt=additionalMethods.convertDateFromStringToIntWithoutPauses(dateByUser);
+    return dateByUserToInt;
 }
 
 string AccountManager::getInfoAboutTransaction()
@@ -210,6 +204,7 @@ void AccountManager::addTransaction()
     }
     transaction.setTransactionDescription(getInfoAboutTransaction());
     transaction.setAmountOfMoneyInTransaction(getAmountOfMoney());//tutaj z funkcją zmieniającą przecinek w kropkę
+
 }
 
 void AccountManager::addIncome()
@@ -235,80 +230,58 @@ int AccountManager::getIdOfLoggedUser()
     return idOfLoggedUser;
 }
 
-struct Date AccountManager::divideDateToDayMonthYear(string date)
+Date AccountManager::divideDateToDayMonthYear(int dateToConvert)
 {
+    string date = additionalMethods.convertIntToString(dateToConvert);
+
     Date sDate;
     sDate.setYear(atoi((date.substr(0,4)).c_str()));
-    sDate.setMonth(atoi((date.substr(5,2)).c_str()));
-    sDate.setDay(atoi((date.substr(8,2)).c_str()));
+    sDate.setMonth(atoi((date.substr(4,2)).c_str()));
+    sDate.setDay(atoi((date.substr(6,2)).c_str()));
     return sDate;
 }
 
-void AccountManager::getIncomesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum)
+vector <Transaction> AccountManager::getTransactionsFromSpecificPeriod(string beginningDateToSum, string endingDateToSum, vector <Transaction> transactions)
 {
-    Date dateFromIncome;
+    int dateFromTransaction;
+    int convertedBeginningDateToSum=additionalMethods.convertDateFromStringToIntWithoutPauses(beginningDateToSum);
+    int convertedEndingDateToSum=additionalMethods.convertDateFromStringToIntWithoutPauses(endingDateToSum);
 
-    incomesInBalance.clear();
+    transactionsInBalance.clear();
 
-    for (int i=0; i<incomes.size(); i++)
+    for (int i=0; i<transactions.size(); i++)
     {
-        dateFromIncome=divideDateToDayMonthYear(incomes[i].getDateOfTransaction());
+        dateFromTransaction=transactions[i].getDateOfTransaction();
 
-        if(dateFromIncome.getYear()>=beginningDateToSum.getYear() &&
-            dateFromIncome.getMonth()>=beginningDateToSum.getMonth() &&
-            dateFromIncome.getDay()>=beginningDateToSum.getDay() &&
-            dateFromIncome.getYear()<=endingDateToSum.getYear() &&
-            dateFromIncome.getMonth()<=endingDateToSum.getMonth() &&
-            dateFromIncome.getDay()<=endingDateToSum.getDay() )
-            incomesInBalance.push_back(incomes[i]);
+
+            if (dateFromTransaction>=convertedBeginningDateToSum &&
+                dateFromTransaction<=convertedEndingDateToSum)
+                transactionsInBalance.push_back(transactions[i]);
     }
-}
-void AccountManager::getExpensesFromSpecificPeriod(Date beginningDateToSum, Date endingDateToSum)
-{
-    Date dateFromExpense;
-
-    expensesInBalance.clear();
-
-    for (int i=0; i<expenses.size(); i++)
-    {
-        dateFromExpense=divideDateToDayMonthYear(expenses[i].getDateOfTransaction());
-
-        if(dateFromExpense.getYear()>=beginningDateToSum.getYear() &&
-            dateFromExpense.getMonth()>=beginningDateToSum.getMonth() &&
-            dateFromExpense.getDay()>=beginningDateToSum.getDay() &&
-            dateFromExpense.getYear()<=endingDateToSum.getYear() &&
-            dateFromExpense.getMonth()<=endingDateToSum.getMonth() &&
-            dateFromExpense.getDay()<=endingDateToSum.getDay() )
-            expensesInBalance.push_back(expenses[i]);
-    }
-}
-
-void AccountManager::printAllIncomesToBalance()
-{
-    cout<<"PRZYCHODY:"<<endl;
-    cout<<"DATA / OPIS / KWOTA"<<endl;
-    for(int i=0; i<incomesInBalance.size(); i++)
-    {
-          cout<<incomesInBalance[i].getDateOfTransaction()<<" / "
-          <<incomesInBalance[i].getTransactionDescription()<<" / "
-          <<incomesInBalance[i].getAmountOfMoneyInTransaction()<<endl;
-    }
-    system("pause");
+    return transactionsInBalance;
 }
 
 
-void AccountManager::printAllExpensesToBalance()
+void AccountManager::printAllTransactionsToBalance(string typeOfTransactions, vector <Transaction> transactions)
 {
-    cout<<"WYDATKI:"<<endl;
-    cout<<"DATA / OPIS / KWOTA"<<endl;
-    for(int i=0; i<expensesInBalance.size(); i++)
+    cout<<typeOfTransactions<<endl;
+     if (transactions.size()==0)
+        cout<<"BRAK WPISOW W TYM PRZEDZIALE"<<endl;
+     else{
+          cout<<"DATA / OPIS / KWOTA"<<endl;
+    for(int i=0; i<transactions.size(); i++)
     {
-          cout<<expensesInBalance[i].getDateOfTransaction()<<" / "
-          <<expensesInBalance[i].getTransactionDescription()<<" / "
-          <<expensesInBalance[i].getAmountOfMoneyInTransaction()<<endl;
+        cout.precision(2);
+        cout<<fixed;
+          cout<<additionalMethods.convertDateFromIntToStringAndAddPauses(transactions[i].getDateOfTransaction())<<" / "
+          <<transactions[i].getTransactionDescription()<<" / "
+          <<transactions[i].getAmountOfMoneyInTransaction()<<endl;
     }
-    system("pause");
+
+     }
+system("pause");
 }
+
 
 float AccountManager::sumUpIncomesAndExpensesToBalance()
 {
@@ -320,86 +293,57 @@ float AccountManager::sumUpIncomesAndExpensesToBalance()
         return balance;
 }
 
-void AccountManager::getIncomesOfThisMonth()
+vector <Transaction> AccountManager::getTransactionsOfThisMonth(vector <Transaction> transactions)
 {
-    string date;
+    int date;
+    string dateToString;
     int month;
-    incomesInBalance.clear();
+    transactionsInBalance.clear();
 
-    for(int i=0; i<incomes.size(); i++)
+    for(int i=0; i<transactions.size(); i++)
     {
-        date=incomes[i].getDateOfTransaction();
-        date = date.erase(0,5);
-        date = date.erase(2,3);
-        month = atoi(date.c_str());
+        date=transactions[i].getDateOfTransaction();
+        dateToString=additionalMethods.convertIntToString(date);
+        dateToString = dateToString.erase(0,4);
+        dateToString = dateToString.erase(2,2);
+        month = atoi(dateToString.c_str());
 
         if (month==getAcctualMonthFromSystem())
-        incomesInBalance.push_back(incomes[i]);
+        transactionsInBalance.push_back(transactions[i]);
     }
+    return transactionsInBalance;
 }
 
-void AccountManager::getExpensesOfThisMonth()
-{
-    string date;
-    int month;
-    expensesInBalance.clear();
-
-    for(int i=0; i<expenses.size(); i++)
-    {
-        date=expenses[i].getDateOfTransaction();
-        date = date.erase(0,5);
-        date = date.erase(2,3);
-        month = atoi(date.c_str());
-
-        if (month==getAcctualMonthFromSystem())
-        expensesInBalance.push_back(expenses[i]);
-    }
-}
-
-void AccountManager::balanceOfSpecificPeriod(Date date1, Date date2)
+void AccountManager::balanceOfSpecificPeriod(string date1, string date2)
 {
     system("cls");
-    getIncomesFromSpecificPeriod(date1, date2);
-    printAllIncomesToBalance();
+    incomesInBalance=getTransactionsFromSpecificPeriod(date1, date2, incomes);
+    sort(incomesInBalance.begin(), incomesInBalance.end());
+    printAllTransactionsToBalance("PRZYCHODY", incomesInBalance);
     cout<<endl;
-    getExpensesFromSpecificPeriod(date1, date2);
-    printAllExpensesToBalance();
+    expensesInBalance=getTransactionsFromSpecificPeriod(date1, date2, expenses);
+    sort(expensesInBalance.begin(), expensesInBalance.end());
+    printAllTransactionsToBalance("WYDATKI", expensesInBalance);
     cout<<endl;
     cout<<"BILANS:"<<endl<<sumUpIncomesAndExpensesToBalance()<<endl;
     system ("pause");
 }
 
-void AccountManager::balanceOfThisMonth()
+string AccountManager::chooseDate( string textToView)
 {
-    system("cls");
-    getIncomesOfThisMonth();
-    getExpensesOfThisMonth();
-    printAllIncomesToBalance();
-    cout<<endl;
-    printAllExpensesToBalance();
-    cout<<endl;
-    cout<<"BILANS:"<<endl<<sumUpIncomesAndExpensesToBalance()<<endl;
-    system ("pause");
-}
-
-Date AccountManager::chooseOpeningDate()
-{
+    while(1)
+    {
     system("cls");
     string date;
- cout<<"podaj date (w formacie rrrr-mm-dd), od ktorej zaczniemy liczyc bilans"<<endl;
+ cout<<textToView<<endl;
  cin>>date;
- getYearMonthDayFromWholeDate(date);
- return dateWithSeparationForYearMonthDay;
-}
 
-Date AccountManager::chooseClosingDate()
-{
-    system("cls");
-    string date;
-    cout<<"podaj date (w formacie rrrr-mm-dd), na ktorej skonczymy liczyc bilans"<<endl;
-    cin>>date;
-    getYearMonthDayFromWholeDate(date);
-    return dateWithSeparationForYearMonthDay;
+ if(ifDateIsCorrect(date)==1)
+ return date;
+
+ cout<<"zle wprowadzona data, sprobuj ponownie"<<endl;
+ system("pause");
+ }
 }
 
 void AccountManager::balance()
@@ -410,14 +354,17 @@ void AccountManager::balance()
     switch (choiceOfUser)
     {
     case 1:
+
         balanceOfThisMonth();
         break;
     case 2:
+
         balanceOfPreviousMonth();
         break;
     case 3:
-        Date date1=chooseOpeningDate();
-        Date date2=chooseClosingDate();
+        string date1=chooseDate("podaj date (w formacie rrrr-mm-dd), od ktorej zaczniemy liczyc bilans");
+        string date2=chooseDate("podaj date (w formacie rrrr-mm-dd), na ktorej skonczymy liczyc bilans");
+
         balanceOfSpecificPeriod(date1, date2);
     }
 
@@ -448,118 +395,75 @@ int AccountManager::getLastTransactionId()
     return lastTransactionId;
 }
 
-void AccountManager::getExpensesOfPrevMonth()
+
+vector <Transaction> AccountManager::getTransactionsOfPrevMonth(vector <Transaction> transactions)
 {
     string date;
+    int dateBeforeConversion;
+    string dateAsString;
     int month, year;
-    expensesInBalance.clear();
+    transactionsInBalance.clear();
 
-    for(int i=0; i<expenses.size(); i++)
+    for(int i=0; i<transactions.size(); i++)
     {
-        date=expenses[i].getDateOfTransaction();
-        date = date.erase(0,5);
-        date = date.erase(2,3);
+        dateBeforeConversion=transactions[i].getDateOfTransaction();
+        date=additionalMethods.convertIntToString(dateBeforeConversion);
+        date = date.erase(0,4);
+        date = date.erase(2,2);
         month = atoi(date.c_str());
 
-        date=expenses[i].getDateOfTransaction();
-        date = date.erase(4,6);
-        year = atoi(date.c_str());
-        if((getAcctualMonthFromSystem()!=1) && getAcctualYearFromSystem()==year)
-        {
-            if
-            (month==(getAcctualMonthFromSystem()-1))
-            expensesInBalance.push_back(expenses[i]);
-        }
-        else
-        {
-            if((month==12) && (getAcctualYearFromSystem()-1==year))
-            expensesInBalance.push_back(expenses[i]);
-        }
-    }
-}
-
-void AccountManager::getIncomesOfPrevMonth()
-{
-    string date;
-    int month, year;
-    incomesInBalance.clear();
-
-    for(int i=0; i<incomes.size(); i++)
-    {
-        date=incomes[i].getDateOfTransaction();
-        date = date.erase(0,5);
-        date = date.erase(2,3);
-        month = atoi(date.c_str());
-
-        date=incomes[i].getDateOfTransaction();
-        date = date.erase(4,6);
+        dateBeforeConversion=transactions[i].getDateOfTransaction();
+        date=additionalMethods.convertIntToString(dateBeforeConversion);
+        date = date.erase(4,4);
         year = atoi(date.c_str());
         if((getAcctualMonthFromSystem()!=1) && getAcctualYearFromSystem()==year)
            {
             if(month==(getAcctualMonthFromSystem()-1))
-            incomesInBalance.push_back(incomes[i]);
+            transactionsInBalance.push_back(transactions[i]);
             }
         else
         {
-            if((month==12) && (getAcctualYearFromSystem()-1==year))
-            incomesInBalance.push_back(incomes[i]);
+            if((getAcctualMonthFromSystem()==1) && (month==12) && (getAcctualYearFromSystem()-1==year))
+            transactionsInBalance.push_back(transactions[i]);
         }
     }
+    //sort(transactionsInBalance.begin(), transactionsInBalance.end(),sortByDate);
+    return transactionsInBalance;
 }
 
-void AccountManager::balanceOfPreviousMonth()
+void AccountManager::balanceOfSpecificMonth2ndPart()
 {
-    system("cls");
-    getIncomesOfPrevMonth();
-    getExpensesOfPrevMonth();
-    //sortingIncomesByDate(); TUTAJ PO SORTOWANIU NIE DZIALA
-    printAllIncomesToBalance();
+    printAllTransactionsToBalance("PRZYCHODY", incomesInBalance);
     cout<<endl;
-    printAllExpensesToBalance();
+    printAllTransactionsToBalance("WYDATKI", expensesInBalance);
     cout<<endl;
     cout<<"BILANS:"<<endl<<sumUpIncomesAndExpensesToBalance()<<endl;
     system ("pause");
 }
 
-
-int AccountManager::makePartitionOfIncomes(int p, int r)
+void AccountManager::balanceOfPreviousMonth()
 {
-
-    int x = atoi((((incomes[p].getDateOfTransaction()).erase(4,1)).erase(6,1)).c_str()); // obieramy x
-
-    int i = p, j = r;
-    Transaction w; // i, j - indeksy w tabeli
-    while (true) // petla nieskonczona - wychodzimy z niej tylko przez return j
-    {
-        while (atoi((((incomes[j].getDateOfTransaction()).erase(4,1)).erase(6,1)).c_str()) > x) // dopoki elementy sa wieksze od x
-            j--;
-        while (atoi((((incomes[i].getDateOfTransaction()).erase(4,1)).erase(6,1)).c_str()) < x) // dopoki elementy sa mniejsze od x
-            i++;
-        if (i < j) // zamieniamy miejscami gdy i < j
-        {
-            w = incomes[i];
-            incomes[i] = incomes[j];
-            incomes[j] = w;
-            i++;
-            j--;
-        }
-        else // gdy i >= j zwracamy j jako punkt podzialu tablicy
-            return j;
-    }
+    system("cls");
+    incomesInBalance=getTransactionsOfPrevMonth(incomes);
+    sort(incomesInBalance.begin(), incomesInBalance.end());
+    expensesInBalance=getTransactionsOfPrevMonth(expenses);
+    sort(expensesInBalance.begin(), expensesInBalance.end());
+    balanceOfSpecificMonth2ndPart();
 }
 
-void AccountManager::quicksort(int p, int r) // sortowanie szybkie
+void AccountManager::balanceOfThisMonth()
 {
-int q;
-if (p < r)
+    system("cls");
+    incomesInBalance=getTransactionsOfThisMonth(incomes);
+    sort(incomesInBalance.begin(), incomesInBalance.end());
+    expensesInBalance=getTransactionsOfThisMonth(expenses);
+    sort(expensesInBalance.begin(), expensesInBalance.end());
+    balanceOfSpecificMonth2ndPart();
+}
+/*
+bool AccountManager::sortByDate(Transaction &A, Transaction &B)
 {
-q = makePartitionOfIncomes(p,r); // dzielimy tablice na dwie czesci; q oznacza punkt podzialu
-quicksort(p, q); // wywolujemy rekurencyjnie quicksort dla pierwszej czesci tablicy
-quicksort(q+1, r); // wywolujemy rekurencyjnie quicksort dla drugiej czesci tablicy
+    return (A.getDateOfTransaction() < B.getDateOfTransaction());
 }
-}
+*/
 
-void AccountManager::sortingIncomesByDate()
-{
-    quicksort(0, incomes.size());
-}

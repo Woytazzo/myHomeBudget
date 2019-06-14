@@ -31,15 +31,11 @@ void registration();
 void logIn();
 void addIncome();
 void addExpense();
-void showBalanceOfThisMonth();
-void showBalanceOfPrevMonth();
-void showBalanceOfChosenPeriod();
 void changePassword();
 void logOut();
 void mainMenuAfterLaunch();
 void mainMenuAfterLogIn();
 void mainMenus();
-void BalanceMenu();
 void balance();
 
 };

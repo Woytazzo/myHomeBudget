@@ -25,3 +25,19 @@ string AdditionalMethods::changeComaToDot(string number)
     }
     return number;
 }
+
+int AdditionalMethods::convertDateFromStringToIntWithoutPauses(string dateWithPauses)
+{
+    dateWithPauses.erase(4,1);
+    dateWithPauses.erase(6,1);
+    int dateWithoutPausesToInt=atoi(dateWithPauses.c_str());
+    return dateWithoutPausesToInt;
+}
+
+string AdditionalMethods::convertDateFromIntToStringAndAddPauses(int dateWithoutPauses)
+{
+    string dateWithPauses=convertIntToString(dateWithoutPauses);
+    dateWithPauses.insert(4,"-");
+    dateWithPauses.insert(7,"-");
+    return dateWithPauses;
+}

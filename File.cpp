@@ -1,35 +1,5 @@
 #include "FileWithIncomes.h"
 
-void File::saveTransactionsToFile(vector <Transaction> transactions, int idOfLoggedUser, string fileName)
-{
-    CMarkup xmlTemp;
-    int i=0;
-
-if(xmlTemp.Load(fileName)==0)
-{
-    xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-    xml.AddElem("TRANSACTIONS");
-}
-
-else
-xml.FindElem();
-xml.IntoElem();
-    while(i<transactions.size())
-    {
-xml.AddElem("TRANSACTION");
-xml.IntoElem();
-xml.AddElem( "USER_ID", idOfLoggedUser);
-xml.AddElem( "TRANSACTION_ID", transactions[i].getTransactionId()); //
-xml.AddElem( "DATE", transactions[i].getDateOfTransaction());
-xml.AddElem( "INFO", transactions[i].getTransactionDescription());
-xml.AddElem( "AMOUNT", additionalMethods.convertFloatToString(transactions[i].getAmountOfMoneyInTransaction() ));
-xml.OutOfElem();
-i++;
-   }
-xml.Save(fileName);
-xml.ResetPos();
-}
-
 vector <Transaction> File::loadTransactionsFromFile(int idOfLoggedUser, string fileName)
 {
     vector <Transaction> transactions;
@@ -42,6 +12,8 @@ vector <Transaction> File::loadTransactionsFromFile(int idOfLoggedUser, string f
 vector <Transaction> File::convertTransactionsDataFromXmlToVector(int idOfLoggedUser)
 {
 int idOfUser;
+int dateConvertedToIntFromXml;
+string dateToConvert;
 Transaction transaction;
 vector <Transaction> transactions;
 xml.ResetPos();
@@ -58,7 +30,13 @@ while ( xml.FindElem() )
     xml.FindElem( "TRANSACTION_ID" );
     transaction.setTransactionId(atoi( MCD_2PCSZ(xml.GetData()) ));
     xml.FindElem( "DATE" );
-    transaction.setDateOfTransaction(xml.GetData());
+    dateToConvert=xml.GetData();
+    dateToConvert.erase(7,1);
+    dateToConvert.erase(4,1);
+    dateConvertedToIntFromXml=atoi((dateToConvert).c_str());
+    //TUTAJ DODAJEMY
+    transaction.setDateOfTransaction(dateConvertedToIntFromXml);
+
     xml.FindElem( "INFO" );
     transaction.setTransactionDescription(xml.GetData());
     xml.FindElem( "AMOUNT" );
@@ -74,6 +52,7 @@ return transactions;
 
 void File::saveLastTransactionToFile(Transaction transaction, int idOfLoggedUser, string fileName)
 {
+string date=additionalMethods.convertDateFromIntToStringAndAddPauses(transaction.getDateOfTransaction());
 
 if(xml.Load(fileName)==0)
 {
@@ -90,7 +69,7 @@ xml.AddElem("TRANSACTION");
 xml.IntoElem();
 xml.AddElem( "USER_ID", idOfLoggedUser);
 xml.AddElem( "TRANSACTION_ID", transaction.getTransactionId()); //
-xml.AddElem( "DATE", transaction.getDateOfTransaction());
+xml.AddElem( "DATE", date);
 xml.AddElem( "INFO", transaction.getTransactionDescription());
 xml.AddElem( "AMOUNT", additionalMethods.convertFloatToString(transaction.getAmountOfMoneyInTransaction() ));
 xml.OutOfElem();
