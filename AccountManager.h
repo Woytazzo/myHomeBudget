@@ -57,7 +57,7 @@ public:
     idOfLoggedUser = IDOFLOGGEDUSER;
     incomes = fileWithIncomes.loadTransactionsFromFile(idOfLoggedUser, "Incomes.xml");
     expenses = fileWithExpenses.loadTransactionsFromFile(idOfLoggedUser, "Expenses.xml");
-    lastTransactionId = getLastTransactionId();
+    getLastTransactionId();
     };
     void showMenu();
     void showBalanceInnerMenu();
@@ -65,7 +65,7 @@ public:
     void addIncome();
     void addExpense();
     void balanceOfSpecificPeriod(string date1, string date2);
-    int getLastTransactionId();
+    void getLastTransactionId();
 
     Date divideDateToDayMonthYear(int dateToConvert);
     void printAllTransactionsToBalance(string typeOfTransactions, vector <Transaction> transactions);

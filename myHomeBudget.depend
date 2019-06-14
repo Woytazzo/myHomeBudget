@@ -113,10 +113,10 @@
 	<algorithm>
 	"PersonalBudget.h"
 
-1560385406 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
+1560510894 source:e:\przyszlyprogramista\myhomebudget\accountmanager.cpp
 	"AccountManager.h"
 
-1560388011 e:\przyszlyprogramista\myhomebudget\accountmanager.h
+1560511605 e:\przyszlyprogramista\myhomebudget\accountmanager.h
 	<iostream>
 	<algorithm>
 	<cstdlib>
@@ -207,7 +207,7 @@
 	"Markup.h"
 	"File.h"
 
-1559779179 e:\przyszlyprogramista\myhomebudget\file.h
+1560511340 e:\przyszlyprogramista\myhomebudget\file.h
 	<iostream>
 	<fstream>
 	<vector>
@@ -220,6 +220,6 @@
 1559226412 source:e:\przyszlyprogramista\myhomebudget\filewithexpenses.cpp
 	"FileWithExpenses.h"
 
-1559779353 source:e:\przyszlyprogramista\myhomebudget\file.cpp
+1560511340 source:e:\przyszlyprogramista\myhomebudget\file.cpp
 	"FileWithIncomes.h"
 
