@@ -264,6 +264,7 @@ vector <Transaction> AccountManager::getTransactionsFromSpecificPeriod(string be
 
 void AccountManager::printAllTransactionsToBalance(string typeOfTransactions, vector <Transaction> transactions)
 {
+    float sumOfAllTransactions;
     cout<<typeOfTransactions<<endl;
      if (transactions.size()==0)
         cout<<"BRAK WPISOW W TYM PRZEDZIALE"<<endl;
@@ -276,8 +277,9 @@ void AccountManager::printAllTransactionsToBalance(string typeOfTransactions, ve
           cout<<additionalMethods.convertDateFromIntToStringAndAddPauses(transactions[i].getDateOfTransaction())<<" / "
           <<transactions[i].getTransactionDescription()<<" / "
           <<transactions[i].getAmountOfMoneyInTransaction()<<endl;
+          sumOfAllTransactions=sumOfAllTransactions+transactions[i].getAmountOfMoneyInTransaction();
     }
-
+    cout<<"SUMA: "<<sumOfAllTransactions<<endl;
      }
 system("pause");
 }
@@ -378,23 +380,11 @@ void AccountManager::balanceMenu()
     cout<<"3. BILANS WYBRANEGO OKRESU"<<endl;
 }
 
-int AccountManager::getLastTransactionId()
+void AccountManager::getLastTransactionId()
 {
-    lastTransactionId=0;
-    for(int i=0; i<incomes.size(); i++)
-    {
-        if(incomes[i].getTransactionId()>lastTransactionId)
-            lastTransactionId=incomes[i].getTransactionId();
-    }
-
-    for(int j=0; j<expenses.size(); j++)
-    {
-        if(expenses[j].getTransactionId()>lastTransactionId)
-            lastTransactionId=expenses[j].getTransactionId();
-    }
-    return lastTransactionId;
+    lastTransactionId=fileWithExpenses.findHighestTransactionId(0);
+    lastTransactionId=fileWithIncomes.findHighestTransactionId(lastTransactionId);
 }
-
 
 vector <Transaction> AccountManager::getTransactionsOfPrevMonth(vector <Transaction> transactions)
 {
@@ -403,7 +393,6 @@ vector <Transaction> AccountManager::getTransactionsOfPrevMonth(vector <Transact
     string dateAsString;
     int month, year;
     transactionsInBalance.clear();
-
     for(int i=0; i<transactions.size(); i++)
     {
         dateBeforeConversion=transactions[i].getDateOfTransaction();
@@ -427,7 +416,7 @@ vector <Transaction> AccountManager::getTransactionsOfPrevMonth(vector <Transact
             transactionsInBalance.push_back(transactions[i]);
         }
     }
-    //sort(transactionsInBalance.begin(), transactionsInBalance.end(),sortByDate);
+
     return transactionsInBalance;
 }
 
@@ -460,10 +449,3 @@ void AccountManager::balanceOfThisMonth()
     sort(expensesInBalance.begin(), expensesInBalance.end());
     balanceOfSpecificMonth2ndPart();
 }
-/*
-bool AccountManager::sortByDate(Transaction &A, Transaction &B)
-{
-    return (A.getDateOfTransaction() < B.getDateOfTransaction());
-}
-*/
-
