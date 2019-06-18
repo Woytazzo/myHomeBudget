@@ -9,9 +9,10 @@ vector <Transaction> File::loadTransactionsFromFile(int idOfLoggedUser, string f
     return transactions;
 }
 
-int File::findHighestTransactionId(int highestTransactionId)
+int File::findHighestTransactionId()
 {
     int transactionIdToCheck=0;
+    int highestTransactionId=0;
 
     xml.ResetPos();
 xml.FindElem();
@@ -20,12 +21,13 @@ xml.IntoElem();
 while ( xml.FindElem() )
 {
     xml.IntoElem();
-    xml.FindElem( "USER_ID" );
     xml.FindElem( "TRANSACTION_ID" );
     transactionIdToCheck = atoi( MCD_2PCSZ(xml.GetData()) );
+
     if(transactionIdToCheck>highestTransactionId)
         highestTransactionId=transactionIdToCheck;
-    else xml.OutOfElem();
+
+     xml.OutOfElem();
 }
 return highestTransactionId;
 }

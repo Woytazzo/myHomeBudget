@@ -34,7 +34,9 @@ class AccountManager
     AdditionalMethods additionalMethods;
     string dateByUser;
     int idOfLoggedUser;
-    int lastTransactionId;
+
+    int lastIncomeId;
+    int lastExpenseId;
 
     string addZeroIfTheresOnlyOneNumber(string number);
 
@@ -57,15 +59,15 @@ public:
     idOfLoggedUser = IDOFLOGGEDUSER;
     incomes = fileWithIncomes.loadTransactionsFromFile(idOfLoggedUser, "Incomes.xml");
     expenses = fileWithExpenses.loadTransactionsFromFile(idOfLoggedUser, "Expenses.xml");
-    getLastTransactionId();
+    getLastTransactionsId();
     };
     void showMenu();
     void showBalanceInnerMenu();
-    void addTransaction();
+    int addTransaction(int lastTransactionId);
     void addIncome();
     void addExpense();
     void balanceOfSpecificPeriod(string date1, string date2);
-    void getLastTransactionId();
+    void getLastTransactionsId();
 
     Date divideDateToDayMonthYear(int dateToConvert);
     void printAllTransactionsToBalance(string typeOfTransactions, vector <Transaction> transactions);

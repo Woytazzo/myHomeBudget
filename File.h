@@ -22,6 +22,6 @@ public:
     void ifFileOpens(CMarkup xml);
     vector <Transaction> convertTransactionsDataFromXmlToVector(int idOfLoggedUser);
     void saveLastTransactionToFile(Transaction transaction, int idOfLoggedUser, string fileName);
-    int findHighestTransactionId(int highestTransactionId);
+    int findHighestTransactionId();
 };
 #endif

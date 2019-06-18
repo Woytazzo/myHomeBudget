@@ -181,16 +181,22 @@ float AccountManager::getAmountOfMoney()
     return textToFloat;
 }
 
-void AccountManager::addTransaction()
+int AccountManager::addTransaction(int lastTransactionId)
 {
-    system("cls");
-    cout<<"DODAWANIE TRANSAKCJI:"<<endl;
-     int choiceOfUser=0;
 
-    cout<<"czy transakcja dotyczy dnia dzisiejszego?"<<endl;
+     int choiceOfUser=0;
+do
+    {
+        system("cls");
+    cout<<"DODAWANIE TRANSAKCJI:"<<endl;
+        cin.clear();
+        cin.ignore();
+        cout<<"czy transakcja dotyczy dnia dzisiejszego?"<<endl;
     cout<<"1. TAK"<<endl;
     cout<<"2. NIE"<<endl;
     cin>>choiceOfUser;
+    } while (choiceOfUser!=1 && choiceOfUser!=2);
+
 
     transaction.setTransactionId(++lastTransactionId);//tutaj ustawic dynamiczne przypisywanie
     switch (choiceOfUser)
@@ -205,13 +211,14 @@ void AccountManager::addTransaction()
     transaction.setTransactionDescription(getInfoAboutTransaction());
     transaction.setAmountOfMoneyInTransaction(getAmountOfMoney());//tutaj z funkcją zmieniającą przecinek w kropkę
 
+    return (lastTransactionId);
 }
 
 void AccountManager::addIncome()
 {
     system("cls");
     cout<<"DODAJ PRZYCHOD"<<endl;
-    addTransaction();
+    lastIncomeId=addTransaction(lastIncomeId);
     incomes.push_back(transaction);
     fileWithIncomes.saveLastTransactionToFile(transaction, idOfLoggedUser, "Incomes.xml");
 }
@@ -220,7 +227,7 @@ void AccountManager::addExpense()
 {
     system("cls");
     cout<<"DODAJ WYDATEK"<<endl;
-    addTransaction();
+    lastExpenseId=addTransaction(lastExpenseId);
     expenses.push_back(transaction);
     fileWithExpenses.saveLastTransactionToFile(transaction, idOfLoggedUser, "Expenses.xml");
 }
@@ -351,8 +358,16 @@ string AccountManager::chooseDate( string textToView)
 void AccountManager::balance()
 {
     int choiceOfUser;
+
+    do
+    {
+        cin.clear();
+        cin.ignore();
     balanceMenu();
     cin>>choiceOfUser;
+    } while (choiceOfUser!=1 && choiceOfUser!=2 && choiceOfUser!=3);
+
+
     switch (choiceOfUser)
     {
     case 1:
@@ -380,10 +395,10 @@ void AccountManager::balanceMenu()
     cout<<"3. BILANS WYBRANEGO OKRESU"<<endl;
 }
 
-void AccountManager::getLastTransactionId()
+void AccountManager::getLastTransactionsId()
 {
-    lastTransactionId=fileWithExpenses.findHighestTransactionId(0);
-    lastTransactionId=fileWithIncomes.findHighestTransactionId(lastTransactionId);
+    lastExpenseId=fileWithExpenses.findHighestTransactionId();
+    lastIncomeId=fileWithIncomes.findHighestTransactionId();
 }
 
 vector <Transaction> AccountManager::getTransactionsOfPrevMonth(vector <Transaction> transactions)
